@@ -34,15 +34,21 @@ func notFound404(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var err error
-	homeTemplate, err = template.ParseFiles("views/home.gohtml")
+	homeTemplate, err = template.ParseFiles(
+		"views/home.gohtml",
+		"views/layouts/footer.gohtml")
 	if err != nil {
 		panic(err)
 	}
-	contactTemplate, err = template.ParseFiles("views/contact.gohtml")
+	contactTemplate, err = template.ParseFiles(
+		"views/contact.gohtml",
+		"views/layouts/footer.gohtml")
 	if err != nil {
 		panic(err)
 	}
-	notFoundTemplate, err = template.ParseFiles("views/404.gohtml")
+	notFoundTemplate, err = template.ParseFiles(
+		"views/404.gohtml",
+		"views/layouts/footer.gohtml")
 	if err != nil {
 		panic(err)
 	}
