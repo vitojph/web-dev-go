@@ -1,4 +1,4 @@
-module web-app
+module web-dev-go
 
 go 1.15
 
