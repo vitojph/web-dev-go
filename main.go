@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"web-dev-go/controllers"
 	"web-dev-go/views"
 
 	"github.com/gorilla/mux"
@@ -48,14 +49,17 @@ func main() {
 	contactView = views.NewView("bootstrap", "views/contact.gohtml")
 	notFoundView = views.NewView("bootstrap", "views/404.gohtml")
 	faqView = views.NewView("bootstrap", "views/faq.gohtml")
-
 	var handler404 http.Handler = http.HandlerFunc(notFound404)
+
+	usersC := controllers.NewUsers()
 
 	r := mux.NewRouter()
 	r.NotFoundHandler = handler404
-	r.HandleFunc("/", home)
-	r.HandleFunc("/contact", contact)
-	r.HandleFunc("/faq", faq)
+	r.HandleFunc("/", home).Methods("GET")
+	r.HandleFunc("/contact", contact).Methods("GET")
+	r.HandleFunc("/faq", faq).Methods("GET")
+	r.HandleFunc("/signup", usersC.New).Methods("GET")
+	r.HandleFunc("/signup", usersC.Create).Methods("POST")
 	fmt.Println("Serving at http://localhost:8080")
 	http.ListenAndServe(":8080", r)
 }
